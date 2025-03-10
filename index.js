@@ -4,21 +4,6 @@ const cors = require('cors');
 server.use(cors());
 
 
-// server.get("", (req, res)=>{
-//     const {nome, idade}=req.query;
-//     return res.json({
-//         title: "ola mundo",
-//         message:`"ola ${nome} meu amigo tudo bem`,
-//         idade: idade
-//     });
-// })
-// server.get("/oi/:nome", (req, res)=>{
-//     return res.json({
-//         title: "ola mundo",
-//         message:`"ola ${nome} meu amigo tudo bem`
-//     });
-// })
-
 let customers=[
     {id: 1, name: "dev escola", site: "http://devsamurai.com.br"},
     {id: 2, name: "Google", site: "http://google.com"},
@@ -47,5 +32,27 @@ server.post("/customers", (req, res)=>{
     return res.status(201).json(newCustomer)
 })
 
+server.put("/customers/:id", (req, res)=>{
+    const id =parseInt(req.params.id);
+    const {name, site}=req.body;    
+    const Index=customers.findIndex(item => item.id===id);
+    const status=Index>=0? 200:404
 
+    if(Index>=0){
+        customers[Index]={id:parseInt(id), name, site};  
+    }
+     return res.status(status).json(customers[Index])
+})
+
+server.delete("/customers/:id", (req, res)=>{
+    const id =parseInt(req.params.id);
+    const {name, site}=req.body;    
+    const Index=customers.findIndex(item => item.id===id);
+    const status=Index>=0? 200:404
+
+    if(Index>=0){
+        customers.splice(Index, 1);
+    }
+    return res.status(status).json();
+})
 server.listen(3000);
