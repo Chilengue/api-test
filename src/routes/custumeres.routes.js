@@ -1,15 +1,12 @@
 const { Router } = require("express");
 const routes = new Router(); 
+const custumers = require("../app/controllers/custumersController");
 
-// Exemplo de rota GET
-routes.get("/", (req, res) => {
-    res.send("Bem-vindo à API!");
-});
+routes.get("customres", custumers.index);
+routes.get("customres/:id", custumers.show);
+routes.post("customres", custumers.create);
+routes.post("customres/:id", custumers.update);
+routes.delete("customres/:id", custumers.destroy);
 
-// Exemplo de rota POST
-routes.post("/users", (req, res) => {
-    const { name, email } = req.body;
-    return res.json({ message: `Usuário ${name} cadastrado com sucesso!` });
-});
 
 module.exports = routes;
