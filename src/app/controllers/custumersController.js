@@ -1,10 +1,13 @@
+let customers = [
+    { id: 1, name: "dev escola", site: "http://devsamurai.com.br" },
+    { id: 2, name: "Google", site: "http://google.com" },
+    { id: 3, name: "uol", site: "http://uol.com.br" }
+];
+
 class CustomersController {
+  
     constructor() {
-        this.customers = [
-            { id: 1, name: "dev escola", site: "http://devsamurai.com.br" },
-            { id: 2, name: "Google", site: "http://google.com" },
-            { id: 3, name: "uol", site: "http://uol.com.br" }
-        ];
+        
     }
 
     index(req, res) {
