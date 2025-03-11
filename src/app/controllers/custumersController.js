@@ -1,63 +1,59 @@
-let customers = [
-    { id: 1, name: "dev escola", site: "http://devsamurai.com.br" },
-    { id: 2, name: "Google", site: "http://google.com" },
-    { id: 3, name: "uol", site: "http://uol.com.br" }
-];
+let customers = [  
+    { id: 1, name: "dev escola", site: "http://devsamurai.com.br" },  
+    { id: 2, name: "Google", site: "http://google.com" },  
+    { id: 3, name: "uol", site: "http://uol.com.br" }  
+];  
 
-class CustomersController {
-  
-    constructor() {
-        
-    }
+class CustomersController {  
 
-    index(req, res) {
-        return res.json(this.customers);
-    }
+    index(req, res) {  
+        return res.json(customers);  
+    }  
 
-    show(req, res) {
-        const id = parseInt(req.params.id);
-        const customer = this.customers.find(item => item.id === id);
-        const status = customer ? 200 : 404;
+    show(req, res) {  
+        const id = parseInt(req.params.id, 10);  
+        const customer = customers.find(item => item.id === id);  
+        const status = customer ? 200 : 404;  
 
-        console.debug("GET  :: /customers/:id", customer);
+        console.debug("GET  :: /customers/:id", customer);  
 
-        return res.status(status).json(customer || { message: "Customer not found" });
-    }
+        return res.status(status).json(customer || { message: "Customer not found" });  
+    }  
 
-    create(req, res) {
-        const { name, site } = req.body;
-        const id = this.customers.length > 0 ? this.customers[this.customers.length - 1].id + 1 : 1;
-        const newCustomer = { id, name, site };
+    create(req, res) {  
+        const { name, site } = req.body;  
+        const id = customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;  
+        const newCustomer = { id, name, site };  
 
-        this.customers.push(newCustomer);
+        customers.push(newCustomer);  
 
-        return res.status(201).json(newCustomer);
-    }
+        return res.status(201).json(newCustomer);  
+    }  
 
-    update(req, res) {
-        const id = parseInt(req.params.id);
-        const { name, site } = req.body;
-        const index = this.customers.findIndex(item => item.id === id);
-        const status = index >= 0 ? 200 : 404;
+    update(req, res) {  
+        const id = parseInt(req.params.id, 10);  
+        const { name, site } = req.body;  
+        const index = customers.findIndex(item => item.id === id);  
+        const status = index >= 0 ? 200 : 404;  
 
-        if (index >= 0) {
-            this.customers[index] = { id, name, site };
-        }
+        if (index >= 0) {  
+            customers[index] = { id, name, site };  
+        }  
 
-        return res.status(status).json(this.customers[index] || { message: "Customer not found" });
-    }
+        return res.status(status).json(customers[index] || { message: "Customer not found" });  
+    }  
 
-    destroy(req, res) {
-        const id = parseInt(req.params.id);
-        const index = this.customers.findIndex(item => item.id === id);
-        const status = index >= 0 ? 200 : 404;
+    destroy(req, res) {  
+        const id = parseInt(req.params.id, 10);  
+        const index = customers.findIndex(item => item.id === id);  
+        const status = index >= 0 ? 200 : 404;  
 
-        if (index >= 0) {
-            this.customers.splice(index, 1);
-        }
+        if (index >= 0) {  
+            customers.splice(index, 1);  
+        }  
 
-        return res.status(status).json(index >= 0 ? { message: "Customer deleted" } : { message: "Customer not found" });
-    }
-}
+        return res.status(status).json(index >= 0 ? { message: "Customer deleted" } : { message: "Customer not found" });  
+    }  
+}  
 
-module.exports = new CustomersController();
+export default new CustomersController(); 

@@ -1,6 +1,9 @@
-const { Router } = require("express");
-const routes = new Router(); 
-const custumers = require("../app/controllers/custumersController");
+import { Router } from("express");
+import custumers from ("../app/controllers/custumersController");
+
+
+
+const  routes = new Router(); 
 
 routes.get("customres", custumers.index);
 routes.get("customres/:id", custumers.show);
@@ -10,3 +13,4 @@ routes.delete("customres/:id", custumers.destroy);
 
 
 module.exports = routes;
+                  
