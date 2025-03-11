@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 import config from "../config/database";
 
-import Customer from "../model/customer"; // Corrigido nome do arquivo
+import Customer from "../model/customer";
 import User from "../model/user";
 import Product from "../model/product";
 
@@ -16,11 +16,11 @@ class Database {
     }
 
     init() {
-        models.forEach(model => model.init(this.connection));
+        models.forEach((model) => model.init(this.connection));
     }
 
     associate() {
-        models.forEach(model => {
+        models.forEach((model) => {
             if (model.associate) {
                 model.associate(this.connection.models);
             }
