@@ -1,8 +1,7 @@
 {
     "watch": ["src"],
     "ext": "js,json",
-    "exec": "node ./src/server/server.js",
-    "execMap": {
-        "js": "sucrase-node"
-    }
-}
+    "ignore": ["node_modules/"],
+    "exec": "node --experimental-specifier-resolution=node ./src/server/server.js"
+  }
+  

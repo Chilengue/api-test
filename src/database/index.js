@@ -1,10 +1,10 @@
-import { Sequelize } from "sequelize";
+const { Sequelize } = require("sequelize");
 
-import config from "../config/database";
+const config = require("../config/database");
 
-import Customer from "../model/customer";
-import User from "../model/user";
-import Product from "../model/product";
+const Customer = require("../model/customer");
+const User = require("../model/user");
+const Product = require("../model/product");
 
 const models = [Customer, User, Product];
 
@@ -28,4 +28,4 @@ class Database {
     }
 }
 
-export default new Database();
+module.exports = new Database();

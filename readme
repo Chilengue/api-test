@@ -18,3 +18,9 @@ npx sequelize db:migrate:undo
 
 npx sequelize db:migrate:undo:all  # Reverter todas as migrations
 npx sequelize db:migrate           # Rodar novamente as migrations
+
+# Design  patterns{ elements of Reusable object-oriented software, Erich Gamma  Richard Heml}
+# arquitetura de software{}
+# codigo limpo{}
+# template engine jade javacript
+# 

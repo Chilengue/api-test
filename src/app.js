@@ -1,6 +1,7 @@
-import express from "express";
-// import routes from "./routes/custumeres.routes";
-import "./database";
+const express = require("express");
+const routes = require("./routes/custumeres.routes");
+require("./database");
+
 
 class App {
     constructor() {
@@ -14,7 +15,7 @@ class App {
     }
 
     routes() {
-        // this.server.use(routes);
+        this.server.use(routes);
     }
 }
  

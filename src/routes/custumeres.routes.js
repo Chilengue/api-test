@@ -9,5 +9,4 @@ routes.post("/customers", customers.create);
 routes.put("/customers/:id", customers.update);
 routes.delete("/customers/:id", customers.destroy);
 
-
 module.exports = routes;

@@ -1,22 +1,23 @@
-import Sequelize, { Model } from "sequelize";
+const { Model, Sequelize } = require("sequelize");
 
-class User extends Model{
+class User extends Model {
     static init(sequelize) {
         super.init(
             {
-                name:Sequelize.STRING,
-                email:Sequelize.STRING,
-                password_hash:Sequelize.STRING,
-                provider:Sequelize.BOOLEAN,
+                name: Sequelize.STRING,
+                email: Sequelize.STRING,
+                password_hash: Sequelize.STRING,
+                provider: Sequelize.BOOLEAN,
             },
             {
                 sequelize,
             }
-        )
+        );
     }
-    static associate(models){
-        this.belongsTo(models.Customer,{foreignKey:"customer_id"})
+
+    static associate(models) {
+        this.belongsTo(models.Customer, { foreignKey: "customer_id" });
     }
 }
 
-export  default User;
+module.exports = User;

@@ -1,6 +1,8 @@
-import Customer from "../../model/cutomer";
+const { Op } = require("sequelize");
+const { parseISO } = require("date-fns");
 
-Customer;
+const Customer = require("../../model/customer");
+
 let customers = [
     { id: 1, name: "dev escola", site: "http://devsamurai.com.br" },
     { id: 2, name: "Google", site: "http://google.com" },
@@ -9,9 +11,73 @@ let customers = [
 
 class CustomersController {
     async index(req, res) {
+        // Filtro parâmetros de consulta
+        const {
+            name,
+            email,
+            status,
+            createdBefore,
+            createdAfter,
+            updatedBefore,
+            updatedAfter,
+            sort
+        } = req.query;
+
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 25;
+
+        let where = {};
+
+        if (name) {
+            where = {
+                ...where,
+                name: {
+                    [Op.like]: `%${name}%`
+                }
+            };
+        }
+
+        if (email) {
+            where = {
+                ...where,
+                email: {
+                    [Op.like]: `%${email}%`
+                }
+            };
+        }
+
+        if (status) {
+            where = {
+                ...where,
+                status: {
+                    [Op.in]: status.split(",").map(item => item.toUpperCase())
+                }
+            };
+        }
+
+        if (createdBefore) {
+            where = {
+                ...where,
+                createdAt: {
+                    [Op.lte]: parseISO(createdBefore)
+                }
+            };
+        }
+
+        if (createdAfter) {
+            where = {
+                ...where,
+                createdAt: {
+                    [Op.gte]: parseISO(createdAfter)
+                }
+            };
+        }
+
         const data = await Customer.findAll({
+            where,
             limit: 1000,
         });
+
         return res.json(data);
     }
 
@@ -29,8 +95,7 @@ class CustomersController {
 
     create(req, res) {
         const { name, site } = req.body;
-        const id =
-            customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
+        const id = customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
         const newCustomer = { id, name, site };
 
         customers.push(newCustomer);
@@ -72,4 +137,4 @@ class CustomersController {
     }
 }
 
-export default new CustomersController();
+module.exports = new CustomersController();
